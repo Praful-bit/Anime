@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from "react";
 import { AnimeContext } from "../../Context/AnimeContext";
-
+import {Link} from 'react-router-dom'
 function AnimeList() {
   const { Anime, fetchDataFromApi } = useContext(AnimeContext);
 
@@ -19,12 +19,13 @@ function AnimeList() {
         const largeImageUrl = anime.images?.jpg?.large_image_url;
 
         return (
+          <Link to={`/amine/${anime.mal_id}`} key={anime.mal_id}>
           <div
             key={anime.mal_id}
             className="w-56 h-72 bg-white shadow-lg rounded-lg overflow-hidden relative text-center p-0 pb-4 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
           >
             <div className="h-4/5 overflow-hidden">
-              <img
+             <img
                 src={largeImageUrl}
                 alt={anime.title}
                 className="w-full h-full object-cover"
@@ -36,6 +37,7 @@ function AnimeList() {
               </h3>
             </div>
           </div>
+          </Link>
         );
       })}
     </div>

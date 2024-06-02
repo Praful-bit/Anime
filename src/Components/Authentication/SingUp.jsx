@@ -30,7 +30,7 @@ function SignUp({ handleToggle, singUpOpen }) {
           onSubmit={handleSubmit}
           className="bg-white bg-opacity-10 p-8 rounded-2xl shadow-lg  transform transition duration-500 hover:scale-105 w-full max-w-md"
         >
-          <h2 className="text-2xl font-serif mb-6 text-center">Sign Up</h2>
+          <h2 className="text-4xl font-semibold font-serif mb-6 text-center">Sign Up</h2>
           <label
             htmlFor="email"
             className="block text-black text-xl font-serif mb-1"

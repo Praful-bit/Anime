@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import { AuthContextProvider } from "./Context/AuthContext.jsx";
+// import AnimeList from "./Components/AnimeList/AnimeList.jsx";
 // import App from "./App.jsx";
 // import Home from "./Components/Home/Home.jsx";
 // import About from "./Components/About/About.jsx";
@@ -20,6 +21,7 @@ const Home = lazy(()=> import("./Components/Home/Home.jsx"));
 const About = lazy(()=> import ('./Components/About/About.jsx'))
 const ContactUs = lazy(()=> import('./Components/ContactUs/ContactUs.jsx'))
 const Loggin = lazy(()=> import('./Components/Authentication/Loggin.jsx'))
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Suspense fallback={<p>Loading...</p>}><App /></Suspense>}>
@@ -27,6 +29,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Suspense fallback={<p>Loading...</p>}><Home /></Suspense>} />
       <Route path="/about" element={<Suspense fallback={<p>Loading...</p>}><About /></Suspense>} />
       <Route path="/contact-us" element={<Suspense fallback={<p>Loading...</p>}><ContactUs /></Suspense>} />
+      
     </Route>
   )
 );
