@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import AnimeList from "../AnimeList/AnimeList";
-import naru from "../../accets/naru.jpg";
+import naru from "../../accets/naru.jpg"; 
 
 function Home() {
   return (
@@ -16,7 +16,7 @@ function Home() {
           className="text-indigo-600 text-lg font-semibold mb-4 inline-block"
         >
         </Link>
-        <h2 className="text-4xl font-bold mb-6 text-center font-serif text-gray-100">
+        <h2 className="text-4xl font-bold mb-6 text-center font-serif text-gray-900">
           Anime List
         </h2>
         <AnimeList />

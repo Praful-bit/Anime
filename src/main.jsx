@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import { AuthContextProvider } from "./Context/AuthContext.jsx";
+import AnimeDetails from "./Components/AnimeList/AnimeDetails.jsx";
+import AnimeList from "./Components/AnimeList/AnimeList.jsx";
 // import AnimeList from "./Components/AnimeList/AnimeList.jsx";
 // import App from "./App.jsx";
 // import Home from "./Components/Home/Home.jsx";
@@ -29,7 +31,8 @@ const router = createBrowserRouter(
       <Route path="/" element={<Suspense fallback={<p>Loading...</p>}><Home /></Suspense>} />
       <Route path="/about" element={<Suspense fallback={<p>Loading...</p>}><About /></Suspense>} />
       <Route path="/contact-us" element={<Suspense fallback={<p>Loading...</p>}><ContactUs /></Suspense>} />
-      
+      <Route path ='/anime' element={<AnimeList/>}/>
+      <Route path="/anime/:id" element ={<AnimeDetails/>}/>
     </Route>
   )
 );
