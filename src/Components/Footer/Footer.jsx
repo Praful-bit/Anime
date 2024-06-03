@@ -3,12 +3,12 @@ import React from 'react';
 function Footer() {
   return (
     <div className="bg-gray-800 text-white py-6">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-left">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
+        <div className="text-center md:text-left mb-4 md:mb-0">
           <h1 className="text-3xl font-bold">Praful Gahlot</h1>
-          <a href = "https://anime-khaki-phi.vercel.app/"className="text-lg">AniManGa.in</a>
+          <a href='https://anime-khaki-phi.vercel.app/' className="text-lg">AniManGa.in</a>
         </div>
-        <div className="text-center">
+        <div className="text-center mb-4 md:mb-0">
           <h2 className="text-2xl font-bold mb-2">Connect with me</h2>
           <div className="flex justify-center space-x-6">
             <a href="https://www.instagram.com/praful_gahlot_02?igsh=MTNvd3N4aWQyeDNmNA==" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
@@ -22,7 +22,7 @@ function Footer() {
             </a>
           </div>
         </div>
-        <div className="text-right">
+        <div className="text-center md:text-right">
           <p className="mb-2">Contact Number: <a href="tel:8979012764" className="text-blue-400 hover:underline">8979012764</a></p>
           <p>WhatsApp: <a href="https://wa.me/8979012764" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:underline">8979012764</a></p>
         </div>
