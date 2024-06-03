@@ -11,7 +11,7 @@ function AnimeList() {
   }, []);
 
   if (!Anime || !Anime[1]) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
