@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext({
@@ -8,19 +6,18 @@ export const AuthContext = createContext({
   login: (token) => {},
   logout: () => {},
   signUp: (user) => {},
-  forget:(email)=>{}
+  forget: (email) => {}
 });
 
 export const AuthContextProvider = ({ children }) => {
   const initialToken = localStorage.getItem("token");
-  const [token, setToken] = useState(
-    initialToken ? JSON.parse(initialToken) : null
-  );
+  const [token, setToken] = useState(initialToken || null);
+  const [loginError, setLoginError] = useState(null);
   const userLoggedIn = !!token;
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("token", JSON.stringify(token));
+      localStorage.setItem("token", token);
     } else {
       localStorage.removeItem("token");
     }
@@ -43,10 +40,17 @@ export const AuthContextProvider = ({ children }) => {
         }
       );
       const resData = await res.json();
-      console.log(resData);
-      setToken({ idToken: resData.idToken });
+
+      if (res.status !== 200) {
+        setLoginError(resData.error.message);
+        return;
+      }
+
+      setToken(resData.idToken);
+      setLoginError(null);
     } catch (err) {
-      console.log("Error in login", err);
+      console.error("Error in login", err);
+      setLoginError("An error occurred during login.");
     }
   };
 
@@ -70,34 +74,39 @@ export const AuthContextProvider = ({ children }) => {
         }
       );
       const resData = await res.json();
-      console.log(resData);
-      setToken({ idToken: resData.idToken });
+      if (resData.error) {
+        throw new Error(resData.error.message);
+      }
+      setToken(resData.idToken);
     } catch (err) {
-      console.log("Error in SignUp", err);
+      console.error("Error in SignUp", err);
     }
   };
 
-  const forgetPassword =async(email)=>{
-   try{
-    const res = await fetch(
-     `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCdvmwW7-reJ0JgB1RZB8jXYxXVRSFaUw8`,
-     {
-       method: "POST",
-       body: JSON.stringify({
-         requestType: "PASSWORD_RESET",
-         email: email.email,
-       }),
-       headers: {
-         "Content-type": "application/json",
-       },
-     }
-   );
-   const resData = await res.json()
-   console.log(resData)
-   }catch(err){
-    console.log('error in forgetPassword',err);
-   }
-  }
+  const forgetPassword = async (email) => {
+    try {
+      const res = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCdvmwW7-reJ0JgB1RZB8jXYxXVRSFaUw8`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            requestType: "PASSWORD_RESET",
+            email: email.email,
+          }),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+      const resData = await res.json();
+      if (resData.error) {
+        throw new Error(resData.error.message);
+      }
+      console.log(resData);
+    } catch (err) {
+      console.error("Error in forgetPassword", err);
+    }
+  };
 
   const contextValue = {
     token: token,
@@ -106,9 +115,12 @@ export const AuthContextProvider = ({ children }) => {
     logout: logOutHandler,
     signUp: signUpHandler,
     forget: forgetPassword,
+    loginError,
   };
 
   return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>
+      {children}
+    </AuthContext.Provider>
   );
 };
